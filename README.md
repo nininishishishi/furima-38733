@@ -12,7 +12,7 @@
 | firstname          | string   | null: false              |
 | lastname_kana      | string   | null: false              |
 | firstname_kana     | string   | null: false              |
-| birthday           | datetime | null: false              |
+| birthday           | date     | null: false              |
 
 ### Association
 
@@ -69,7 +69,7 @@
 | address            | string      | null: false |
 | building           | string      |             |
 | telephone_number   | string      | null: false |
-| purchase_id        | references  | null: false, foreign_key: true  |
+| purchase　　        | references  | null: false, foreign_key: true  |
 
 
 
