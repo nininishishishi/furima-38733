@@ -33,8 +33,6 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
-      it 'nicknameが7文字以上では登録できない' do
-      end
       it '重複したemailが存在する場合は登録できない' do
         @user.save
         another_user = FactoryBot.build(:user)
@@ -59,6 +57,24 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Password is too long (maximum is 128 characters)")
       end
+      it 'passwordが英字のみではでは登録できない' do
+        @user.password = 'aaaaaa'
+        @user.password_confirmation = 'aaaaaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password は半角英数を両方含む必要があります')
+      end
+      it 'passwordが数字のみでは登録できない' do
+        @user.password = '000000'
+        @user.password_confirmation = '000000'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password は半角英数を両方含む必要があります')
+      end
+      it 'passwordが全角だと登録できない' do
+        @user.password = '００００００'
+        @user.password_confirmation = '００００００'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password は半角英数を両方含む必要があります')
+      end
       it 'lastnameが空では登録できない' do
         @user.lastname = ''
         @user.valid?
@@ -78,6 +94,16 @@ RSpec.describe User, type: :model do
         @user.firstname_kana = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Firstname kana can't be blank")
+      end
+      it 'lastname_kanaがカタカナ以外の文字（ひらがなや漢字）が含まれている場合は登録できない' do
+        @user.lastname_kana = 'あああ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Lastname kana 全角カタカナのみで入力して下さい")
+      end
+      it 'firstname_kanaがカタカナ以外の文字（ひらがなや漢字）が含まれている場合は登録できない' do
+        @user.firstname_kana = 'あああ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Firstname kana 全角カタカナのみで入力して下さい")
       end
       it 'birthdayが空では登録できない' do
         @user.birthday = ''
