@@ -55,7 +55,7 @@ RSpec.describe User, type: :model do
         @user.password = Faker::Internet.password(min_length: 129)
         @user.password_confirmation = @user.password
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is too long (maximum is 128 characters)")
+        expect(@user.errors.full_messages).to include('Password is too long (maximum is 128 characters)')
       end
       it 'passwordが英字のみではでは登録できない' do
         @user.password = 'aaaaaa'
@@ -88,12 +88,12 @@ RSpec.describe User, type: :model do
       it 'lastnameに半角文字が含まれていると登録できない' do
         @user.lastname = 'aaa'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Lastname 全角文字を使用してください")
+        expect(@user.errors.full_messages).to include('Lastname 全角文字を使用してください')
       end
       it 'firstnameに半角文字が含まれていると登録できない' do
         @user.firstname = 'aaa'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Firstname 全角文字を使用してください")
+        expect(@user.errors.full_messages).to include('Firstname 全角文字を使用してください')
       end
       it 'lastname_kanaが空では登録できない' do
         @user.lastname_kana = ''
@@ -108,12 +108,12 @@ RSpec.describe User, type: :model do
       it 'lastname_kanaがカタカナ以外の文字（ひらがなや漢字）が含まれている場合は登録できない' do
         @user.lastname_kana = 'あああ'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Lastname kana 全角カタカナのみで入力して下さい")
+        expect(@user.errors.full_messages).to include('Lastname kana 全角カタカナのみで入力して下さい')
       end
       it 'firstname_kanaがカタカナ以外の文字（ひらがなや漢字）が含まれている場合は登録できない' do
         @user.firstname_kana = 'あああ'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Firstname kana 全角カタカナのみで入力して下さい")
+        expect(@user.errors.full_messages).to include('Firstname kana 全角カタカナのみで入力して下さい')
       end
       it 'birthdayが空では登録できない' do
         @user.birthday = ''
