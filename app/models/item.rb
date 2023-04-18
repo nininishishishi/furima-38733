@@ -7,7 +7,7 @@ class Item < ApplicationRecord
   validates :detail, presence: true
   validates :category_id, presence: true, numericality: { other_than: 1, message: "can't be blank" }
   validates :condtion_id, presence: true, numericality: { other_than: 1, message: "can't be blank" }
-  validates :shipping_cost_id, presence: true, numericality: { other_than: 1, message: "can't be blank" }
+  validates :shippingcost_id, presence: true, numericality: { other_than: 1, message: "can't be blank" }
   validates :prefecture_id, presence: true, numericality: { other_than: 1, message: "can't be blank" }
   validates :reserve_id, presence: true, numericality: { other_than: 1, message: "can't be blank" }
   validates :price, presence: true, numericality: { only_integer: true },
