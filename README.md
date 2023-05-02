@@ -39,12 +39,12 @@
 ### Association
 
 - belongs_to :user
-- has_one :history
+- has_one :order
 <!-- # - has_many :comments -->
 
 
 
-## purchases テーブル
+## orders テーブル
 
 | Column     | Type       | Options                         |
 | ---------- | ---------- | ------------------------------- |
@@ -55,11 +55,11 @@
 
 - belongs_to :user
 - belongs_to :item
-- has_one :delivery
+- has_one :address
 
 
 
-## deliveries テーブル
+## addresses テーブル
 
 | Column             | Type        | Options     |
 | ------------------ | ----------- | ----------- |
@@ -68,15 +68,15 @@
 | municipalities     | string      | null: false |
 | address            | string      | null: false |
 | building           | string      |             |
-| telephone_number   | string      | null: false |
-| purchase　　        | references  | null: false, foreign_key: true  |
+| telephone_number   | integer     | null: false |
+| order              | references  | null: false, foreign_key: true  |
 
 
 
 
 ### Association
 
-- belongs_to :purchase
+- belongs_to :order
 
 
 
