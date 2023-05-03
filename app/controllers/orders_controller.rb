@@ -1,15 +1,12 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, except: :index
-  before_action :move_to_index, only: [:except]
+  before_action :authenticate_user!
+  before_action :move_to_index, only: [:create]
   before_action :move_to_index2, only: [:index]
-  
-
 
   def index
     @item = Item.find(params[:item_id])
     @order_address = OrderAddress.new
   end
-
 
   def create
     @item = Item.find(params[:item_id])
@@ -37,19 +34,18 @@ class OrdersController < ApplicationController
         card: order_params[:token],    # カードトークン
         currency: 'jpy'                 # 通貨の種類（日本円）
       )
-    end
+  end
 
     def move_to_index
       @item = Item.find(params[:item_id])
-      unless user_signed_in? && current_user.id == @item.user_id 
+      return unless user_signed_in? && current_user.id == @item.user_id
      # if @item.order.present? || current_user == @item.user 
-        redirect_to root_path
-      end
+        redirect_to root_path and return
     end
 
     def move_to_index2
       @item = Item.find(params[:item_id])
-      if @item.order.present? || current_user == @item.user 
+      if @item.order.present? || current_user == @item.user
         redirect_to root_path
       end
     end
