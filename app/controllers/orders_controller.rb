@@ -1,15 +1,20 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :move_to_index, only: [:create]
-  before_action :move_to_index2, only: [:index]
+  before_action :set_item, only: [:index, :create, :edit, :new]
+  before_action :move_to_index, only: [:index, :create]
+  #before_action :move_to_index2, only: [:create]
 
   def index
-    @item = Item.find(params[:item_id])
     @order_address = OrderAddress.new
   end
 
+  def new
+    if @item.order.present? || current_user == @item.user
+      redirect_to root_path 
+    end
+  end
+
   def create
-    @item = Item.find(params[:item_id])
     @order_address = OrderAddress.new(order_params)
     if @order_address.valid?
       pay_item
@@ -19,6 +24,9 @@ class OrdersController < ApplicationController
     else
       render :index
     end
+  end
+  
+  def edit
   end
 
   private
@@ -36,17 +44,26 @@ class OrdersController < ApplicationController
       )
   end
 
-    def move_to_index
-      @item = Item.find(params[:item_id])
-      return unless user_signed_in? && current_user.id == @item.user_id
-     # if @item.order.present? || current_user == @item.user 
-        redirect_to root_path and return
-    end
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
 
-    def move_to_index2
-      @item = Item.find(params[:item_id])
-      if @item.order.present? || current_user == @item.user
-        redirect_to root_path
-      end
+  def move_to_index
+    if @item.order.present? || current_user == @item.user
+      redirect_to root_path and return
     end
+  end
+
+
+    #def move_to_index
+     # return unless user_signed_in? && current_user.id == @item.user_id
+     # if @item.order.present? || current_user == @item.user 
+      #  redirect_to root_path and return
+    #end
+
+    #def move_to_index2
+     #  if @item.order.present? || current_user.id == @item.user_id
+      #  redirect_to root_path 
+      #end
+    #end
 end
