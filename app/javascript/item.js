@@ -1,14 +1,13 @@
-
-
 window.addEventListener('load', function(){
 
   const priceInput = document.getElementById("item-price");
   priceInput.addEventListener("input", () => {
     const inputValue = priceInput.value;
     const addTaxDom = document.getElementById("add-tax-price");
-    addTaxDom.innerHTML = Math.floor(inputValue * 0.1);
-    const taxValue = inputValue * 0.1
+    const taxValue = Math.floor(inputValue * 0.1);
+    addTaxDom.innerHTML = taxValue.toFixed(0);
+    const profitValue = inputValue - taxValue;
     const addProfitDom = document.getElementById("profit");
-    addProfitDom.innerHTML = Math.floor(inputValue - taxValue);
+    addProfitDom.innerHTML = profitValue.toFixed(0);
   })
 })
