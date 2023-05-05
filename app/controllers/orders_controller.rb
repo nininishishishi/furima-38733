@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_item, only: [:index, :create, :edit, :new]
+  before_action :set_item, only: [:index, :create]
   before_action :move_to_index, only: [:index, :create]
   #before_action :move_to_index2, only: [:create]
 
@@ -8,25 +8,15 @@ class OrdersController < ApplicationController
     @order_address = OrderAddress.new
   end
 
-  def new
-    if @item.order.present? || current_user == @item.user
-      redirect_to root_path 
-    end
-  end
-
   def create
     @order_address = OrderAddress.new(order_params)
     if @order_address.valid?
       pay_item
-      @order_address.price = @item.price
       @order_address.save
       redirect_to root_path
     else
       render :index
     end
-  end
-  
-  def edit
   end
 
   private

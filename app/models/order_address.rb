@@ -4,12 +4,11 @@ class OrderAddress
 
   with_options presence: true do
     validates :postcode, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
-    validates :prefecture_id, presence: true, numericality: { other_than: 1, message: "can't be blank" }
+    validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
     validates :municipalities
     validates :address
     validates :telephone_number,
-               numericality: { only_integer: true, message: "is invalid. Input only number" },length: { minimum: 10, maximum: 11 }
-                #numericality: { greater_than_or_equal_to: 10, less_than_or_equal_to: 11 } #length: { minimum: 10, maximum: 13 }
+               format: { with: /\A\d+\z/, message: "is invalid. Input only number" },length: { minimum: 10, maximum: 11 }
     validates :user_id
     validates :item_id
     validates :token
