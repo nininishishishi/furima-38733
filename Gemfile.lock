@@ -137,6 +137,8 @@ GEM
     minitest (5.18.0)
     msgpack (1.6.1)
     mysql2 (0.5.5)
+    net-http (0.3.2)
+      uri
     net-imap (0.3.4)
       date
       net-protocol
@@ -287,6 +289,7 @@ GEM
       unf_ext
     unf_ext (0.0.8.2)
     unicode-display_width (2.4.2)
+    uri (0.12.2)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.0)
@@ -326,6 +329,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   mini_magick
   mysql2 (>= 0.4.4)
+  net-http
   payjp
   pg
   pry-rails
